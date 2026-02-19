@@ -6,7 +6,7 @@ const char* ssid = "TU_SSID";
 const char* password = "TU_PASSWORD";
 
 // 2. Registro Modbus (Coil para el LED)
-const int LED_COIL = 100; 
+// const int LED_COIL = 100; 
 
 // Objeto Modbus
 ModbusIP mb;
@@ -31,8 +31,8 @@ void setup() {
   Serial.println(WiFi.localIP());
 
   // 3. Inicializar Modbus
-  mb.config();         // En esta librería se usa .config() para arrancar el servidor
-  mb.addCoil(LED_COIL); // Añadimos el registro 100
+  mb.server();  // ESP32 como esclavo Modbus TCP
+  mb.addCoil(100); // Añadimos el registro 100
 }
 
 void loop() {
@@ -47,6 +47,6 @@ void loop() {
 
     // 6. Actualizar el registro Modbus
     // El SCADA leerá este valor
-    mb.Coil(LED_COIL, estadoLed);
+    mb.Coil(100, estadoLed);
   }
 }
